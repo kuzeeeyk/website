@@ -1,5 +1,10 @@
 <template>
   <div>
-    <NuxtWelcome />
+    <Navbar />
+    <Intro />
+    <NuxtJS />
+    <GitHubStats />
+    <Projects />
+    <Cursor />
   </div>
 </template>
