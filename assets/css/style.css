@@ -2,23 +2,22 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "ClashGrotesk-Variable", sans-serif;
 }
 
 @font-face {
   font-family: "ClashGrotesk-Variable";
-  src: url("~/fonts/ClashGrotesk-Variable.woff2") format("woff2"),
-       url("~/fonts/ClashGrotesk-Variable.woff") format("woff"),
-        url("~/fonts/ClashGrotesk-Variable.ttf") format("truetype");
+  src: url("~/assets/fonts/ClashGrotesk-Variable.woff2") format("woff2"),
+       url("~/assets/fonts/ClashGrotesk-Variable.woff") format("woff"),
+       url("~/assets/fonts/ClashGrotesk-Variable.ttf") format("truetype");
        font-weight: 200 700;
        font-display: swap;
        font-style: normal;
 }
 
 body {
-  font-family: "ClashGrotesk-Variable", sans-serif;
   background: #090909;
   color: #f2f2f2;
-  height: 500vh;
   cursor: default!important;
 }
 

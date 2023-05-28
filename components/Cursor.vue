@@ -55,4 +55,5 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="cursor" :style="cursorStyle"></div>
+  <div class="dot" :style="cursorStyle"></div>
 </template>
