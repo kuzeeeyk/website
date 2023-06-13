@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import { animate, scroll, inView } from "motion";
+
 const year = ref(new Date().getFullYear());
 const totalCommits = ref(0);
 const { data, error, refresh } = useFetch(`https://github.com/users/kuzeeeyk/contributions?to=${year.value}-12-31`, {
@@ -23,6 +25,18 @@ if (data.value) {
   }, 20);
 }
 
+onMounted(() => {
+  inView(".github *", ({ target }) => {
+    if (target.tagName == "svg") {
+      const path = target.querySelector(".underlineSvg");
+      animate(path, {
+        strokeDashoffset: ["600", "0"],
+        opacity: [".8", "1"],
+      }, { delay: .3, duration: 10, easing: [0.1, 0.57, 0.1, 1] });
+    }
+  });
+})
+
 </script>
 <template>
   <div class="github">
@@ -31,12 +45,12 @@ if (data.value) {
       <span>I authored</span>
       <div class="totalCommitsCount">
         <span class="number">{{ totalCommits }}</span>
-        <svg width="141" height="23" viewBox="0 0 141 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            class="fill"
-            d="M4 14.5005C40.9091 5.15555 103.717 -3.46821 136.862 14.426M137 14.5005C136.954 14.4756 136.908 14.4508 136.862 14.426M56.8182 19C68.9091 15.885 88.3888 6.89038 136.862 14.426"
-            stroke="white" stroke-width="8" stroke-linecap="round" />
+
+        <svg width="135" height="20" viewBox="0 0 135 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="fill underlineSvg" d="M4 11.1174C26.0771 5.74644 82.3849 -1.77289 131 11.1174C116.434 9.81532 81.2925 8.96894 57.2581 16"
+            stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
+
       </div>
       <span>commits in</span>
       <span class="number">{{ new Date().getFullYear() }}</span>
@@ -51,6 +65,7 @@ if (data.value) {
   bottom: 0;
   z-index: -100;
 }
+
 .github {
   height: 100vh;
   width: 100%;
@@ -76,10 +91,12 @@ if (data.value) {
   0% {
     filter: drop-shadow(0 0 0 #ffffff50);
   }
+
   50% {
     filter: drop-shadow(0 0 64px #fff);
     transform: scale(1.05);
   }
+
   100% {
     filter: drop-shadow(0 0 0 #ffffff50);
   }
@@ -110,6 +127,7 @@ if (data.value) {
     stroke-dashoffset: 600;
     opacity: 0;
   }
+
   100% {
     stroke-dashoffset: 0;
     opacity: 1;
@@ -122,11 +140,11 @@ if (data.value) {
   transform: translateY(64px) translateX(4px);
 }
 
-.totalCommitsCount > svg > path {
+.totalCommitsCount>svg>path {
   stroke-dasharray: 600;
-  stroke-dashoffset: 0;
-  opacity: 0;
-  animation: fillSvg 3s ease-in-out 3s forwards;
+  stroke-dashoffset: 600;
+  opacity: 1;
+  /* animation: fillSvg 3s ease-in-out 3s forwards; */
 }
 
 .github .number {

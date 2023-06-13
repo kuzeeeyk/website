@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "ClashGrotesk-Variable", sans-serif;
+  cursor: none!important;
 }
 
 @font-face {
@@ -18,7 +19,6 @@
 body {
   background: #090909;
   color: #f2f2f2;
-  cursor: default!important;
 }
 
 :root {
@@ -30,4 +30,9 @@ img {
   user-select: none;
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
+}
+
+::selection {
+  background: #f2f2f2;
+  color: #090909;
 }
