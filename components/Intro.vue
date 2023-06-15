@@ -32,7 +32,7 @@ onMounted(() => {
         <span class="songStatus">Listening to</span>
         <a class="song" :href="activity.track.url" target="_blank">{{ activity.track.name }}</a>
         <span class="songStatus">by</span>
-        <a class="song hover" :href="activity.artists[0].url" target="_blank">{{ activity.artists[0].name }}</a>
+        <a class="song hover" :href="activity?.artists[0].url" target="_blank">{{ activity?.artists[0].name }}</a>
       </div>
       <div class="spotifyText" v-else>
         <span class="songStatus">Not listening to anything right now</span>

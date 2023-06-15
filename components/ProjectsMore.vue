@@ -45,7 +45,7 @@ onMounted(() => {
   font-weight: 400;
   padding: 24px 96px;
   padding-left: 118px;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 20px 20px;
   border-top: none;
   background: #090909;
   text-decoration: none;
@@ -61,7 +61,7 @@ onMounted(() => {
   width: calc(100% + 2px);
   height: calc(100% + 1px);
   background: linear-gradient(180deg, #aaaaaa00 0%, #aaaaaa80 100%);
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 20px 20px;
   z-index: -1;
 }
 

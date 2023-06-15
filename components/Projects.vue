@@ -104,23 +104,20 @@ onMounted(() => {
 }
 
 .project:nth-child(1) {
-  /* offset from center */
   transform: rotate(-4deg);
-  margin-top: -14%;
-  margin-left: -32%;
+  margin-top: -320px;
+  margin-left: -600px;
 }
 
 .project:nth-child(2) {
-  /* offset from center */
-  margin-top: 3%;
-  margin-left: .3%;
+  margin-top: 30px;
+  margin-left: 3px;
 }
 
 .project:nth-child(3) {
-  /* offset from center */
   transform: rotate(-6deg);
-  margin-top: 15%;
-  margin-left: 20%;
+  margin-top: 230px;
+  margin-left: 380px;
   z-index: 50;
 }
 

@@ -16,6 +16,7 @@ inView(".animate", ({ target }) => {
     <GitHubStats />
     <Projects />
     <ProjectsMore />
+    <Skills />
     <Cursor />
   </div>
 </template>
