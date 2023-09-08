@@ -1,59 +1,98 @@
 <script setup>
 onMounted(() => {
+  const cards = document.querySelectorAll(".techCard");
+  const skills = document.querySelector(".skills");
   document.addEventListener("mousemove", (e) => {
-    const rect = document.querySelector(".skills").getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    document.querySelector(".skills").style.setProperty("--mouse-x", x + "px");
-    document.querySelector(".skills").style.setProperty("--mouse-y", y + "px");
-    document.querySelectorAll(".techCard").forEach((card) => {
-      const rect = card.getBoundingClientRect(),
-        x = e.clientX - rect.left,
-        y = e.clientY - rect.top;
-      card.style.setProperty("--mouse-x", `${x}px`);
-      card.style.setProperty("--mouse-y", `${y}px`);
-    });
+    const skillsRect = skills.getBoundingClientRect();
+    const x = e.clientX - skillsRect.left;
+    const y = e.clientY - skillsRect.top;
+    skills.style.setProperty("--mouse-x", x + "px");
+    skills.style.setProperty("--mouse-y", y + "px");
+    for (let i = 0; i < cards.length; i++) {
+      const rect = cards[i].getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      cards[i].style.setProperty("--mouse-x", x + "px");
+      cards[i].style.setProperty("--mouse-y", y + "px");
+    }
   });
 });
+
+const lighthen = (color, amount) => {
+  let usePound = false;
+
+  if (color[0] == "#") {
+    color = color.slice(1);
+    usePound = true;
+  }
+
+  const num = parseInt(color, 16);
+
+  let r = (num >> 16) + amount;
+
+  if (r > 255) r = 255;
+  else if (r < 0) r = 0;
+
+  let b = ((num >> 8) & 0x00ff) + amount;
+
+  if (b > 255) b = 255;
+  else if (b < 0) b = 0;
+
+  let g = (num & 0x0000ff) + amount;
+
+  if (g > 255) g = 255;
+  else if (g < 0) g = 0;
+
+  return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
+};
 
 const techs = ref([
   {
     name: "Node",
     icon: "nodejs",
-    color: "#152411"
+    color: "#152411",
   },
   {
     name: "Vue",
     icon: "vue",
-    color: "#11231B"
+    color: "#11231B",
   },
   {
     name: "Electron",
     icon: "electronjs",
-    color: "#092831"
+    color: "#092831",
   },
   {
     name: "Javascript",
     icon: "js",
-    color: "#353114"
+    color: "#353114",
   },
   {
     name: "Prisma",
     icon: "prisma",
-    color: "#11374C"
+    color: "#11374C",
   },
   {
     name: "Nuxt",
     icon: "nuxt",
-    color: "#113F2C"
-  }
-])
+    color: "#113F2C",
+  },
+]);
+
+techs.value = techs.value.map((tech) => {
+  tech.lightColor = lighthen(tech.color, 30);
+  return tech;
+});
 </script>
 <template>
   <div class="skills">
     <span class="title">Technologies I use</span>
     <div class="techCards">
-      <div v-for="tech in techs" class="techCard" :style="{ '--color': tech.color }">
+      <div
+        v-for="tech in techs"
+        class="techCard"
+        :style="{ '--color': tech.color, '--light-color': tech.lightColor }"
+      >
         <div class="cardContent">
           <div class="iconStroke">
             <div class="icon">
@@ -83,7 +122,7 @@ const techs = ref([
   position: relative;
   padding: 1px;
   z-index: 50;
-  transition: all .5s cubic-bezier(0.17, 0.55, 0.55, 1);
+  transition: all 0.5s cubic-bezier(0.15, 0.55, 0.55, 1);
 }
 
 .techCard:hover {
@@ -95,15 +134,15 @@ const techs = ref([
 }
 
 .techCard:nth-child(3n):hover {
-  box-shadow: -32px 0 32px #09090990;
+  box-shadow: -32px 0 8px #09090940;
 }
 
 .techCard:nth-child(3n-1):hover {
-  box-shadow: 0px 0 32px #09090980;
+  box-shadow: 0px 0 8px #09090950;
 }
 
 .techCard:nth-child(3n-2):hover {
-  box-shadow: 32px 0 32px #09090990;
+  box-shadow: 32px 0 8px #09090940;
 }
 
 .cardContent {
@@ -113,7 +152,7 @@ const techs = ref([
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(to bottom, #111111 0%, #0D0D0D 100%);
+  background: linear-gradient(to bottom, #111111 0%, #0d0d0d 100%);
   z-index: 100;
 }
 
@@ -131,15 +170,14 @@ const techs = ref([
   aspect-ratio: 1/1;
   border-radius: 22px;
   background: radial-gradient(
-    300px circle at var(--mouse-x) var(--mouse-y), 
-    var(--color) 0%,
-    transparent 100%
+    300px circle at var(--mouse-x) var(--mouse-y),
+    var(--light-color) 0%,
+    transparent 200%
   );
   position: relative;
   z-index: 500;
   padding: 2px;
-  filter: brightness(4);
-  transition: transform .3s cubic-bezier(0.17, 0.55, 0.55, 1);
+  transition: transform 0.3s cubic-bezier(0.17, 0.55, 0.55, 1);
 }
 
 .icon {
@@ -149,19 +187,19 @@ const techs = ref([
   width: 100%;
   height: 100%;
   position: relative;
-  background: linear-gradient(to bottom, var(--color) 0%, transparent 200%);
+  background: linear-gradient(to bottom, var(--color) 0%, transparent 150%);
   border-radius: 21px;
-  filter: brightness(0.25);
 }
 
-.techCard:before, .techCard:after {
+.techCard:before,
+.techCard:after {
   content: "";
   position: absolute;
   top: -1px;
   left: -1px;
   width: calc(100% + 2px);
   height: calc(100% + 2px);
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   border-radius: 26.2px;
 }
 
@@ -171,28 +209,28 @@ const techs = ref([
 
 .techCard:before {
   background: radial-gradient(
-    200px circle at var(--mouse-x) var(--mouse-y), 
+    200px circle at var(--mouse-x) var(--mouse-y),
     #ffffff05,
     transparent 100%
   );
   z-index: 5;
 }
 
-.techCard:after {  
+.techCard:after {
   background: radial-gradient(
-    600px circle at var(--mouse-x) var(--mouse-y), 
-    var(--color),
+    600px circle at var(--mouse-x) var(--mouse-y),
+    var(--light-color),
     transparent 40%
   );
-  filter: brightness(2) saturate(0.5);
+  /* filter: brightness(2) saturate(0.5); */
   z-index: -1;
-  box-shadow: inset 0 0 0 1px #ffffff10;
+  /* box-shadow: inset 0 0 0 1px #ffffff10; */
 }
 
 .skills {
   margin: 0 var(--offset);
   margin-top: 256px;
-  background: linear-gradient(to bottom, #1B1B1B 0%, #090909 80%);
+  background: linear-gradient(to bottom, #1b1b1b 0%, #090909 80%);
   height: 1080px;
   display: flex;
   border-radius: 130px 130px 0 0;
@@ -215,8 +253,13 @@ const techs = ref([
   top: -1.5px;
   left: -1.5px;
   width: calc(100% + 3px);
-  height: calc(100% + 3px);
-  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), #ffffff80 0%, #53E58700 50%);
+  height: calc(100% + 1.5px);
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    #ffffff80 0%,
+    #53e58700 50%
+  );
   z-index: -50;
   border-radius: 130px 130px 0 0;
-}</style>
+}
+</style>
