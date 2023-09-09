@@ -58,10 +58,14 @@ const cursorMove = (e) => {
 };
 
 const cursorOutOfScreen = (e) => {
-  cursor.value.style.filter = "blur(32px)";
-  dot.value.style.filter = "blur(4px)";
-  cursor.value.style.opacity = 0;
-  dot.value.style.opacity = 0;
+  const from = e.relatedTarget || e.toElement;
+  if (!from || from.nodeName == "HTML") {
+    cursor.value.style.filter = "blur(32px)";
+    dot.value.style.filter = "blur(4px)";
+    cursor.value.style.opacity = 0;
+    dot.value.style.opacity = 0;
+    console.log("out");
+  }
 };
 
 const cursorHover = (e) => {
