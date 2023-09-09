@@ -109,15 +109,13 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <div>
-    <Navbar />
-    <Intro />
-    <NuxtJS />
-    <GitHubStats />
-    <Projects />
-    <ProjectsMore />
-    <Skills />
-    <div class="cursor" :style="cursorStyle" ref="cursor"></div>
-    <div class="dot" :style="dotStyle" ref="dot"></div>
-  </div>
+  <Navbar />
+  <Intro />
+  <NuxtJS />
+  <GitHubStats />
+  <Projects />
+  <ProjectsMore />
+  <Skills />
+  <div class="cursor" :style="cursorStyle" ref="cursor"></div>
+  <div class="dot" :style="dotStyle" ref="dot"></div>
 </template>
