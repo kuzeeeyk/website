@@ -27,6 +27,7 @@ const cursorStyle = ref({
   opacity: 0,
   zIndex: 1000,
   mixBlendMode: "difference",
+  pointerEvents: "none",
 });
 
 const cursor = ref(null);
@@ -46,6 +47,7 @@ const dotStyle = ref({
     "width .4s ease, height .4s ease, top .4s ease, left .4s ease, filter .05s ease",
   mixBlendMode: "difference",
   zIndex: 1000,
+  pointerEvents: "none",
 });
 
 const cursorMove = (e) => {

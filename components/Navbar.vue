@@ -22,7 +22,7 @@ onMounted(() => {
 </template>
 <style scoped>
 .navbar {
-  display: flex;
+  display: none;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -30,7 +30,7 @@ onMounted(() => {
   position: fixed;
   z-index: 1000;
   width: 100%;
-  transition: .5s transform cubic-bezier(0.5, 0, 0, 1);
+  transition: 0.5s transform cubic-bezier(0.5, 0, 0, 1);
 }
 
 .navbarBt {
@@ -54,11 +54,7 @@ onMounted(() => {
     rgba(0, 0, 0, 1) 0%,
     rgba(0, 0, 0, 0) 100%
   );
-  -webkit-mask-image: linear-gradient(
-    to top,
-    transparent 0%,
-    #000000 100%
-  );
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000000 100%);
   transition: 1s;
 }
 
@@ -82,7 +78,7 @@ onMounted(() => {
 .navbarLink {
   color: #a5a5a5;
   /* cursor: pointer; */
-  transition: .2s;
+  transition: 0.2s;
   mix-blend-mode: difference;
   z-index: 1500;
 }
