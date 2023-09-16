@@ -23,7 +23,7 @@ const cursorStyle = ref({
   transform: "translate(-50%, -50%)",
   pointerEvents: "none",
   transition:
-    "width .2s ease, height .2s ease, top .2s ease, left .2s ease, transform .06s ease, opacity .8s ease, filter .1s ease",
+    "width .2s ease, height .2s ease, top .0s ease, left .0s ease, transform .03s ease, opacity .8s ease, filter .1s ease",
   opacity: 0,
   zIndex: 1000,
   mixBlendMode: "difference",
@@ -44,7 +44,7 @@ const dotStyle = ref({
   transform: "translate(-50%, -50%)",
   pointerEvents: "none",
   transition:
-    "width .4s ease, height .4s ease, top .4s ease, left .4s ease, filter .05s ease",
+    "width .4s ease, height .4s ease, top .0s ease, left .0s ease, filter .05s ease",
   mixBlendMode: "difference",
   zIndex: 1000,
   pointerEvents: "none",
