@@ -261,5 +261,6 @@ techs.value = techs.value.map((tech) => {
   );
   z-index: -50;
   border-radius: 130px 130px 0 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000000 20%, transparent 100%);
 }
 </style>

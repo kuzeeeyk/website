@@ -1,4 +1,6 @@
 <script setup>
+import { gsap } from "gsap";
+
 const name = ref(null);
 const first = ref(null);
 const greeting = ref(null);
@@ -9,27 +11,97 @@ const birthDate = new Date("2 Dec 2007");
 const age = ref(new Date(new Date() - birthDate).getUTCFullYear() - 1970);
 
 onMounted(() => {
-  window.addEventListener("scroll", (e) => {
-    if (!name.value?.style) return;
-    const scroll = window.scrollY;
-    if (scroll > 850) {
-      second.value.style.opacity = 1;
-      second.value.style.background = "#fff";
+  // window.addEventListener("scroll", (e) => {
+  //   if (!name.value?.style) return;
+  //   const scroll = window.scrollY;
+  //   if (scroll > 850) {
+  //     second.value.style.opacity = 1;
+  //     second.value.style.background = "#fff";
+  //     return;
+  //   }
+  //   second.value.style.opacity = 0;
+  //   second.value.style.background = "transparent";
+  //   const greetingOpacity = 1 - scroll / 200;
+  //   const letterSpacing = 0 + Math.pow(scroll / 2, 0.9);
+  //   const scale = 1 + Math.pow(scroll / 120, 2);
+  //   greeting.value.style.opacity = greetingOpacity;
+  //   greeting.value.style.transform = `scale(${scale})`;
+  //   name.value.style.letterSpacing = `${letterSpacing}px`;
+  //   name.value.style.transform = `scale(${scale}) translateX(${
+  //     scroll / 5.4
+  //   }px) translateY(${-scroll / 16}px)`;
+  // });
+  gsap.to(name.value, {
+    letterSpacing: "100px",
+    scale: 65,
+    translateY: "-1300%",
+    translateX: "100%",
+    ease: "sine.inOut",
+    scrollTrigger: {
+      trigger: first.value,
+      start: "top+=100 top",
+      end: "bottom-=300 top",
+      scrub: true,
+    },
+  });
 
-      return;
-    }
-    second.value.style.opacity = 0;
-    second.value.style.background = "transparent";
-    const greetingOpacity = 1 - scroll / 200;
-    const letterSpacing = 0 + Math.pow(scroll / 2, 0.9);
-    const scale = 1 + Math.pow(scroll / 120, 2);
+  gsap.to(greeting.value, {
+    opacity: 0,
+    scale: 0.4,
+    ease: "power4.out",
+    scrollTrigger: {
+      trigger: first.value,
+      start: "top top",
+      end: "center top",
+      scrub: true,
+    },
+  });
 
-    greeting.value.style.opacity = greetingOpacity;
-    greeting.value.style.transform = `scale(${scale})`;
-    name.value.style.letterSpacing = `${letterSpacing}px`;
-    name.value.style.transform = `scale(${scale}) translateX(${
-      scroll / 5.4
-    }px) translateY(${-scroll / 16}px)`;
+  gsap.to(second.value, {
+    opacity: 1,
+    ease: "power4.out",
+    scrollTrigger: {
+      trigger: second.value,
+      start: "top top",
+      end: "bottom-=500 top",
+      scrub: true,
+    },
+  });
+
+  gsap.to(".line", {
+    opacity: 1,
+    filter: "blur(-2px)",
+    stagger: 0.4,
+    ease: "sine.inOut",
+    scrollTrigger: {
+      trigger: second.value,
+      start: "top-=200 top",
+      end: "bottom-=600 top",
+      scrub: true,
+    },
+  });
+
+  gsap.to(ageProgress.value, {
+    opacity: 1,
+    top: "-20%",
+    ease: "sine.inOut",
+    scrollTrigger: {
+      trigger: second.value,
+      start: "top+=200 top",
+      end: "bottom-=600 top",
+      scrub: true,
+    },
+  });
+
+  gsap.to(".age-2", {
+    opacity: 1,
+    ease: "sine.inOut",
+    scrollTrigger: {
+      trigger: second.value,
+      start: "top+=200 top",
+      end: "bottom-=600 top",
+      scrub: true,
+    },
   });
 });
 </script>
@@ -41,7 +113,7 @@ onMounted(() => {
         <span class="name" ref="name">KUZEY</span>
       </div>
     </div>
-    <div class="wrapper">
+    <div class="wrapper" data-scroll>
       <div class="about" ref="second">
         <div class="lines">
           <div class="line">
@@ -50,7 +122,7 @@ onMounted(() => {
               old self-taught web</span
             >
             <div class="age" ref="ageProgress">
-              <span v-for="i in 3" :key="i">
+              <span v-for="i in 3" :key="i" :class="`age-${i}`">
                 {{ +age.toString().slice(1, 2) + i - 1 }}
               </span>
             </div>
@@ -74,7 +146,8 @@ onMounted(() => {
   flex-direction: column;
   left: 344px;
   align-items: center;
-  top: -10%;
+  /* top: -10%; */
+  top: 0%;
   -webkit-mask-image: linear-gradient(
     to top,
     transparent 0%,
@@ -82,6 +155,11 @@ onMounted(() => {
     #fff 60%
   );
 }
+
+.age-2 {
+  opacity: 0;
+}
+
 .age span {
   line-height: 0.9;
 }
@@ -95,6 +173,8 @@ onMounted(() => {
   color: #090909;
   margin-bottom: 24px;
   transition: 0.3s;
+  opacity: 0;
+  filter: "blur(20px)";
 }
 .line img {
   width: 48px;
@@ -136,8 +216,9 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   color: #090909;
-  transition: opacity 0.2s ease-in-out;
   background: #fff;
+  opacity: 0;
+  transition: 0.3s;
 }
 
 .greeting {
