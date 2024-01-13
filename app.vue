@@ -25,5 +25,5 @@ inView(".animate", ({ target }) => {
   <Projects />
   <ProjectsMore />
   <Skills />
-  <Experience />
+  <!-- <Experience /> -->
 </template>
