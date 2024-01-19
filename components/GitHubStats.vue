@@ -1,13 +1,16 @@
 <script setup>
 import { ref } from "vue";
-import { animate, scroll, inView } from "motion";
+import { gsap } from "gsap";
 
 const year = ref(new Date().getFullYear());
 const totalCommits = ref(0);
-const { data, error, refresh } = useFetch(`https://github.com/users/kuzeeeyk/contributions?to=${year.value}-12-31`, {
-  mode: "no-cors",
-  server: true
-});
+const { data, error, refresh } = useFetch(
+  `https://github.com/users/kuzeeeyk/contributions?to=${year.value}-12-31`,
+  {
+    mode: "no-cors",
+    server: true,
+  }
+);
 refresh();
 if (data.value) {
   const parser = new DOMParser();
@@ -26,17 +29,30 @@ if (data.value) {
 }
 
 onMounted(() => {
-  inView(".github *", ({ target }) => {
-    if (target.tagName == "svg") {
-      const path = target.querySelector(".underlineSvg");
-      animate(path, {
-        strokeDashoffset: ["600", "0"],
-        opacity: [".8", "1"],
-      }, { delay: .3, duration: 10, easing: [0.1, 0.57, 0.1, 1] });
-    }
+  gsap.to(".underlineSvg", {
+    strokeDashoffset: "0",
+    opacity: "1",
+    ease: "sine.inOut",
+    scrollTrigger: {
+      trigger: ".github",
+      start: "top-=500 top",
+      end: "bottom top",
+      scrub: true,
+    },
   });
-})
 
+  gsap.to(".number", {
+    opacity: 1,
+    y: 0,
+    ease: "sine.inOut",
+    scrollTrigger: {
+      trigger: ".github",
+      start: "top-=500 top",
+      end: "center top",
+      scrub: true,
+    },
+  });
+});
 </script>
 <template>
   <div class="github">
@@ -46,11 +62,22 @@ onMounted(() => {
       <div class="totalCommitsCount">
         <span class="number">{{ totalCommits }}</span>
 
-        <svg width="135" height="20" viewBox="0 0 135 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="fill underlineSvg" d="M4 11.1174C26.0771 5.74644 82.3849 -1.77289 131 11.1174C116.434 9.81532 81.2925 8.96894 57.2581 16"
-            stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+        <svg
+          width="135"
+          height="20"
+          viewBox="0 0 135 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            class="fill underlineSvg"
+            d="M4 11.1174C26.0771 5.74644 82.3849 -1.77289 131 11.1174C116.434 9.81532 81.2925 8.96894 57.2581 16"
+            stroke="white"
+            stroke-width="8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
-
       </div>
       <span>commits in</span>
       <span class="number">{{ new Date().getFullYear() }}</span>
@@ -140,7 +167,7 @@ onMounted(() => {
   transform: translateY(64px) translateX(4px);
 }
 
-.totalCommitsCount>svg>path {
+.totalCommitsCount > svg > path {
   stroke-dasharray: 600;
   stroke-dashoffset: 600;
   opacity: 1;
@@ -149,5 +176,7 @@ onMounted(() => {
 
 .github .number {
   color: #fff;
+  transform: translateY(-8px);
+  opacity: 0.4;
 }
 </style>
