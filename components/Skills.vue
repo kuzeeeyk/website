@@ -1,4 +1,6 @@
 <script setup>
+import { gsap } from "gsap";
+
 onMounted(() => {
   const cards = document.querySelectorAll(".techCard");
   const skills = document.querySelector(".skills");
@@ -15,6 +17,22 @@ onMounted(() => {
       cards[i].style.setProperty("--mouse-x", x + "px");
       cards[i].style.setProperty("--mouse-y", y + "px");
     }
+  });
+
+  gsap.to(".techCard", {
+    scale: 1,
+    opacity: 1,
+    ease: "sine.inOut",
+    stagger: {
+      amount: 0.2,
+      from: "center",
+    },
+    scrollTrigger: {
+      trigger: ".skills",
+      start: "top-=1000 top",
+      end: "center-=500 top",
+      scrub: true,
+    },
   });
 });
 
@@ -122,6 +140,8 @@ techs.value = techs.value.map((tech) => {
   position: relative;
   padding: 1px;
   z-index: 50;
+  opacity: 0;
+  scale: 0.5;
   transition: all 0.5s cubic-bezier(0.15, 0.55, 0.55, 1);
 }
 
