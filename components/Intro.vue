@@ -35,11 +35,11 @@ onMounted(() => {
     letterSpacing: "100px",
     scale: 65,
     translateY: "-1300%",
-    translateX: "100%",
+    translateX: "300%",
     ease: "sine.inOut",
     scrollTrigger: {
       trigger: first.value,
-      start: "top+=100 top",
+      start: "top top",
       end: "bottom-=300 top",
       scrub: true,
     },
@@ -62,8 +62,8 @@ onMounted(() => {
     ease: "power4.out",
     scrollTrigger: {
       trigger: second.value,
-      start: "top top",
-      end: "bottom-=500 top",
+      start: "top-=400 top",
+      end: "bottom-=1000 top",
       scrub: true,
     },
   });
@@ -75,7 +75,7 @@ onMounted(() => {
     ease: "sine.inOut",
     scrollTrigger: {
       trigger: second.value,
-      start: "top-=200 top",
+      start: "top-=600 top",
       end: "bottom-=600 top",
       scrub: true,
     },
