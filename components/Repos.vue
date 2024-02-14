@@ -33,7 +33,7 @@ onMounted(() => {
   document.addEventListener("mousemove", (e) => {
     const x = e.pageX / window.innerWidth;
     const y = e.pageY / window.innerHeight;
-    const cards = document.querySelectorAll(".project");
+    const cards = document.querySelectorAll(".repo");
     cards.forEach((card, i) => {
       i++;
       let cardRotation = i % 2 == 0 ? (i + 1) * 1.5 : (i + 1) * -1.5;
@@ -45,12 +45,12 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="projects">
-    <img src="~/assets/projects.png" alt="projects" class="bg" />
+  <div class="repos">
+    <img src="~/assets/repos.png" alt="repos" class="bg" />
     <span class="title">Some of my repository</span>
     <div class="cards">
       <a
-        class="project hover"
+        class="repo hover"
         v-for="repo in repoData"
         :href="`https://github.com/${repo.user}/${repo.name}`"
         target="_blank"
@@ -87,7 +87,7 @@ onMounted(() => {
   top: 0;
 }
 
-.projects {
+.repos {
   height: 100vh;
   width: 100%;
   display: flex;
@@ -106,7 +106,7 @@ onMounted(() => {
   height: 100%;
 }
 
-.project {
+.repo {
   width: 600px;
   height: 200px;
   display: flex;
@@ -126,25 +126,25 @@ onMounted(() => {
   text-decoration: none;
 }
 
-.project:nth-child(1) {
+.repo:nth-child(1) {
   transform: rotate(-4deg);
   margin-top: -320px;
   margin-left: -600px;
 }
 
-.project:nth-child(2) {
+.repo:nth-child(2) {
   margin-top: 30px;
   margin-left: 3px;
 }
 
-.project:nth-child(3) {
+.repo:nth-child(3) {
   transform: rotate(-6deg);
   margin-top: 230px;
   margin-left: 380px;
   z-index: 50;
 }
 
-.project:hover {
+.repo:hover {
   background-color: #00000050;
   /* rotate: 4deg!important; */
   border: 1px solid #ffffff;
@@ -152,12 +152,12 @@ onMounted(() => {
   box-shadow: 0 0 24px 0 #ffffff30;
 }
 
-.project:nth-child(1):hover,
-.project:nth-child(3):hover {
+.repo:nth-child(1):hover,
+.repo:nth-child(3):hover {
   rotate: 4.2deg !important;
 }
 
-.project:nth-child(2):hover {
+.repo:nth-child(2):hover {
   rotate: -3.8deg !important;
 }
 
@@ -197,7 +197,7 @@ onMounted(() => {
   transition: 0.2s ease-in-out opacity;
 }
 
-.project:hover .name {
+.repo:hover .name {
   opacity: 1;
   text-shadow: 0 0 24px #ffffff30;
 }

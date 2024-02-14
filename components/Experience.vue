@@ -1,4 +1,6 @@
 <script setup>
+import { gsap } from "gsap";
+
 const canvas = ref(null);
 const debug = ref(null);
 
@@ -105,12 +107,37 @@ onMounted(() => {
       k -= 0.1;
     }
   });
+
+  gsap.to("#projectsTitle", {
+    top: "400vh",
+    fontSize: "0px",
+    fontWeight: 800,
+    letterSpacing: "-20px",
+    filter: "blur(28px)",
+    rotationX: -90,
+    opacity: -2,
+    ease: "sine.inOut",
+    scrollTrigger: {
+      trigger: ".experience",
+      start: "top-=200 top",
+      end: "center-=400 top",
+      scrub: true,
+    },
+  });
 });
 </script>
 <template>
-  <span class="debug">{{ debug }}</span>
-  <div class="projects" ref="projects">
-    <canvas ref="canvas" id="canvas" class="particles"></canvas>
+  <div class="experience">
+    <span class="debug">{{ debug }}</span>
+    <div class="projects" ref="projects">
+      <span class="title" id="projectsTitle">Projects</span>
+      <div class="projectCards">
+        <div class="project">MERHABA</div>
+      </div>
+      <div class="canvasWrapper">
+        <canvas ref="canvas" id="canvas" class="particles"></canvas>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -122,10 +149,35 @@ canvas {
   height: 100vh;
 }
 
+.title {
+  position: absolute;
+  font-size: 12vw;
+  font-weight: 800;
+  text-transform: uppercase;
+  /* it only has stroke */
+  color: #090909;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+}
+
+.experience {
+  position: relative;
+  height: 400vh;
+}
+
 .projects {
   position: relative;
   width: 100%;
   height: 400vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.canvasWrapper {
+  height: 100%;
   -webkit-mask-image: linear-gradient(to bottom, transparent 5%, #000 80%);
 }
 

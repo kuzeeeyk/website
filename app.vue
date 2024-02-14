@@ -22,8 +22,8 @@ inView(".animate", ({ target }) => {
   <Intro />
   <NuxtJS />
   <GitHubStats />
-  <Projects />
-  <ProjectsMore />
+  <Repos />
+  <ReposMore />
   <Skills />
   <!-- <Experience /> -->
 </template>
